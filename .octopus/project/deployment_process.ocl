@@ -1,36 +1,3 @@
-step "check-for-updates" {
-    name = "Check for Updates"
-
-    action {
-        action_type = "Octopus.Script"
-        notes = "Check the upstream repo to see if there are any updates to merge into this project."
-        properties = {
-            Octopus.Action.Package.DownloadOnTentacle = "False"
-            Octopus.Action.Package.FeedId = "sales-maven-feed"
-            Octopus.Action.Package.PackageId = "com.octopus:enterprise-patterns-scripts"
-            Octopus.Action.Script.ScriptFileName = "preview_merge_repo.py"
-            Octopus.Action.Script.ScriptParameters = "--git-protocol https --git-host github.com --git-organization OctopusSolutionsEngineering --git-username x-access-token --git-password #{Octopus.Action[Generate GitHub Token].Output.GitHubToken} --template-repo-name DSC-AWS-FrontendWebApp --tenant-name \"#{Octopus.Space.Name}\" --silent-fail"
-            Octopus.Action.Script.ScriptSource = "Package"
-            OctopusUseBundledTooling = "False"
-        }
-        worker_pool = "hosted-ubuntu"
-
-        container {
-            feed = "docker-hub"
-            image = "octopussamples/diff2html"
-        }
-
-        packages {
-            acquisition_location = "Server"
-            feed = "sales-maven-feed"
-            package_id = "com.octopus:enterprise-patterns-scripts"
-            properties = {
-                SelectionMode = "immediate"
-            }
-        }
-    }
-}
-
 step "get-stack-outputs" {
     name = "Get Stack Outputs"
 
