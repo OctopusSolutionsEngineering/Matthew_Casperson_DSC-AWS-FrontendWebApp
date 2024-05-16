@@ -62,3 +62,12 @@ variable "customSecondaryColor" {
         process = ["deployment-process"]
     }
 }
+
+variable "my setting" {
+    value "default" {}
+
+    value "development" {
+        description = ""
+        environment = ["development"]
+    }
+}
