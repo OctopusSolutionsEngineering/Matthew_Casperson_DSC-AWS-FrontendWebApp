@@ -62,3 +62,7 @@ variable "customSecondaryColor" {
         process = ["deployment-process"]
     }
 }
+
+variable "Application.IDP.Url" {
+    value "https://example.org/idp" {}
+}
